@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Let AJAX change this text.</p>
+
+<button type="button"
+onclick="loadDoc()">Change Content
+</button>
+
+<script>
+
+
+
+
+function loadDoc() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+      //document.getElementById("demo").innerHTML = xhttp.responseText;
+          var data = JSON.parse(xhttp.responseText);
+          var ul = document.createElement('ul');
+
+          for (var i in data) {
+              var li = document.createElement('li');
+              li.innerHTML = data[i];
+              ul.appendChild(li);
+          }
+          document.body.appendChild(ul);
+
+        }
+    };
+    xhttp.open("GET", 'http://localhost:8080/Alice', true);
+    xhttp.send();
+}
+
+</script>
+</body>
+</html>
+
+
+
